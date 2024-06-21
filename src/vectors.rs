@@ -32,17 +32,16 @@ pub fn direction_and_magnitude() {
     }
 
     // Vectors can only store one type at a time, but can use enums to change this
-    enum SpreadsheetCell {
-        Int(i32),
-        Float(f64),
-        Text(String),
-    }
+    // enum SpreadsheetCell {
+    //     Int(i32),
+    //     Float(f64),
+    //     Text(String),
+    // }
 
     // This requires knowing the exhaustive number of types your program wants a vector to be able to hold
-    let row = vec![
-        SpreadsheetCell::Text(String::from("Text")),
-        SpreadsheetCell::Int(3),
-        SpreadsheetCell::Float(3.6),
-    ];
-
+    // let _row = vec![
+    //     SpreadsheetCell::Text(String::from("Text")),
+    //     SpreadsheetCell::Int(3),
+    //     SpreadsheetCell::Float(3.6),
+    // ];
 }

@@ -1,5 +1,6 @@
 use chapter_7_onward::eat_at_restaurant;
 use crate::garden::vegetables::Asparagus;
+use std::collections::HashMap;
 // Nested path
 // use std::{cmp::Ordering, io};
 // use std::io::{self, Write}; brings std::io and std::io::Write into scope * to bring all public items
@@ -12,4 +13,41 @@ fn main() {
     println!("I'm growing {plant:?}!");
 
     eat_at_restaurant();
+
+    let test = String::from("magic");
+
+    for a in test.chars() {
+        println!("{a}");
+    }
+
+    let mut scores: HashMap<String, i32> = HashMap::new();
+
+    scores.insert(String::from("Blue"), 3);
+    scores.insert(String::from("Bluer"), 30);
+
+    // Unwrap_or can set this score to 0 if there is no value for it
+    // We get an Option<i32> instead of Option<i32> by using .copied()
+    let blue_score = scores.get("Blue").copied().unwrap_or(0);
+
+    println!("{blue_score}");
+
+    // Can iterate over a HashMap
+    for (key, value) in &scores {
+        println!("{key}: {value}");
+    }
+
+    let s = String::from("string");
+    let mut map = HashMap::new();
+    
+    // Here the hashmap has taken ownership of s and s is no longer valid
+    // Can use &s
+    map.insert(s, 4);
+
+    let some_string = "a magic word in a string";
+    for x in some_string.split_whitespace() {
+        let count = map.entry(x.to_string()).or_insert(0);
+        // Dereference mutable reference so we can assign value
+        // * causes it to point directly to the referenced data as '.entry()' returns a reference
+        *count += 1;
+    }
 }
