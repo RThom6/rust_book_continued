@@ -1,6 +1,8 @@
 use chapter_7_onward::eat_at_restaurant;
 use crate::garden::vegetables::Asparagus;
 use std::collections::HashMap;
+use std::fs::File;
+use std::io::ErrorKind;
 // Nested path
 // use std::{cmp::Ordering, io};
 // use std::io::{self, Write}; brings std::io and std::io::Write into scope * to bring all public items
@@ -50,4 +52,22 @@ fn main() {
         // * causes it to point directly to the referenced data as '.entry()' returns a reference
         *count += 1;
     }
+
+    let greeting_file_result = File::open("test.txt");
+
+    // Opening a file can fail (as it will here)
+    // We can match on different error types
+    let _file = match greeting_file_result {
+        Ok(_file) => _file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("hello.txt") {
+                Ok(fc) => fc,
+                Err(e) => panic!("Problem creating the file: {e:?}"),
+            },
+            other_error => {
+                panic!("Problem opening the file: {other_error:?}");
+            }
+        },
+    };
+
 }
