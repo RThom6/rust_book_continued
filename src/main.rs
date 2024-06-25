@@ -4,6 +4,7 @@ use std::collections::HashMap;
 use std::fs::File;
 use std::fs;
 use std::io::{self, ErrorKind, Read};
+use std::net::IpAddr;
 // Nested path
 // use std::{cmp::Ordering, io};
 // use std::io::{self, Write}; brings std::io and std::io::Write into scope * to bring all public items
@@ -71,7 +72,7 @@ fn main() {
         },
     };
 
-
+    to_panic_or_not_to_panic();
 }
 
 fn _read_username_from_file() -> Result<String, io::Error> {
@@ -86,4 +87,35 @@ fn _read_username_from_file() -> Result<String, io::Error> {
 fn _read_username_2() -> Result<String, io::Error> {
     // Opens file, creates string and reads file into it right away
     fs::read_to_string("hello.txt")
+}
+
+fn to_panic_or_not_to_panic() {
+    // Case where you have more information than the compiler
+    let _home: IpAddr = "127.0.0.1"
+        .parse()
+        .expect("Hardcoded IP address should be valid");
+
+    // If user put at risk with invalid values, verify and panic
+    let g = Guess::new(5);
+
+    println!("The guess value is: {:?}", g.value);
+}
+
+// Type that only creates a Guess if the new function receives a value between 1 and 100
+pub struct Guess {
+    value: i32,
+}
+
+impl Guess {
+    pub fn new(value: i32) -> Guess {
+        if value < 1 || value > 100 {
+            panic!("Guess value must be between 1 and 100, got {value}.");
+        }
+
+        Guess { value }
+    }
+
+    pub fn value(&self) -> i32 {
+        self.value
+    }
 }
