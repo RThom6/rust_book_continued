@@ -9,7 +9,7 @@ use std::net::IpAddr;
 // use std::{cmp::Ordering, io};
 // use std::io::{self, Write}; brings std::io and std::io::Write into scope * to bring all public items
 pub mod garden; // module garden
-
+pub mod types;
 pub mod vectors;
 
 fn main() {
@@ -73,6 +73,8 @@ fn main() {
     };
 
     to_panic_or_not_to_panic();
+
+    types::not_main();
 }
 
 fn _read_username_from_file() -> Result<String, io::Error> {
