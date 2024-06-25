@@ -2,7 +2,8 @@ use chapter_7_onward::eat_at_restaurant;
 use crate::garden::vegetables::Asparagus;
 use std::collections::HashMap;
 use std::fs::File;
-use std::io::ErrorKind;
+use std::fs;
+use std::io::{self, ErrorKind, Read};
 // Nested path
 // use std::{cmp::Ordering, io};
 // use std::io::{self, Write}; brings std::io and std::io::Write into scope * to bring all public items
@@ -70,4 +71,19 @@ fn main() {
         },
     };
 
+
+}
+
+fn _read_username_from_file() -> Result<String, io::Error> {
+    let mut username = String::new();
+
+    // ? propagates errors
+    File::open("hello.txt")?.read_to_string(&mut username)?;
+
+    Ok(username)
+}
+
+fn _read_username_2() -> Result<String, io::Error> {
+    // Opens file, creates string and reads file into it right away
+    fs::read_to_string("hello.txt")
 }
