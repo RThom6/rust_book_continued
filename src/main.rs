@@ -1,10 +1,10 @@
-use chapter_7_onward::eat_at_restaurant;
 use crate::garden::vegetables::Asparagus;
 use std::collections::HashMap;
 use std::fs::File;
 use std::fs;
 use std::io::{self, ErrorKind, Read};
 use std::net::IpAddr;
+use chapter_7_onward::{Summary, Tweet, eat_at_restaurant};
 // Nested path
 // use std::{cmp::Ordering, io};
 // use std::io::{self, Write}; brings std::io and std::io::Write into scope * to bring all public items
@@ -75,6 +75,18 @@ fn main() {
     to_panic_or_not_to_panic();
 
     types::not_main();
+
+    // Using out Tweet struct with our defined trait
+    let tweet = Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from(
+            "of course, as you probably already know, people"
+        ),
+        reply: false,
+        retweet: false,
+    };
+
+    println!("1 new tweet: {}", tweet.summarize());
 }
 
 fn _read_username_from_file() -> Result<String, io::Error> {
@@ -119,5 +131,14 @@ impl Guess {
 
     pub fn value(&self) -> i32 {
         self.value
+    }
+}
+
+fn _returns_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("value"),
+        content: String::from("2"),
+        reply: false,
+        retweet: true,
     }
 }

@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 // Uses generic type to find the largest of some thing, could be i32 or char etc
 pub fn largest<T>(list: &[T]) -> &T {
     let largest = &list[0];
@@ -18,8 +20,26 @@ struct Point<T> {
 }
 
 impl<T> Point<T> {
+    // Returns a reference to x
     fn _x(&self) -> &T {
         &self.x
+    }
+}
+
+impl<T: Display + PartialOrd> Point<T> {
+    fn _cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }
+    }
+}
+
+// Can write constraints for only specific types
+impl Point<f32> {
+    fn _distance_from_origin(&self) -> f32 {
+        (self.x.powi(2) + self.y.powi(2)).sqrt()
     }
 }
 
