@@ -11,6 +11,7 @@ use chapter_7_onward::{Summary, Tweet, eat_at_restaurant};
 pub mod garden; // module garden
 pub mod types;
 pub mod vectors;
+pub mod lifetimes;
 
 fn main() {
     let plant = Asparagus {};
@@ -87,6 +88,8 @@ fn main() {
     };
 
     println!("1 new tweet: {}", tweet.summarize());
+
+    lifetimes::example();
 }
 
 fn _read_username_from_file() -> Result<String, io::Error> {
